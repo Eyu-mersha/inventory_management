@@ -2,3 +2,7 @@ body {
     margin-top: 500px;
     font-family: verdana;
   }
+.list_container {
+    padding: 30px;
+    color:red;
+}

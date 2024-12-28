@@ -5,14 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{title}}</title>
-    <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}">
+    <link rel="stylesheet" href="{% static 'css/add_items.css' %}">
 </head>
 {% include 'navbar.html' %}    
 <body style="margin-top: 6rem;">
-    
-    <form method='POST' action=''>{% csrf_token %}
-        {{form}}
-        <input type="submit" value='Save'/>
+
+    <form class="form" method="POST" action="">{% csrf_token %}
+        {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                <span class="field">{{ field }}</span>
+            </div>
+        {% endfor %}
+        <input class="submit" type="submit" value='Save'/>
     </form>
 </body>
 </html>

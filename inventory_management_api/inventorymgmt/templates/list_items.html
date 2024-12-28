@@ -5,13 +5,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{title}}</title>
-    <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}">
+    <link rel="stylesheet" href="{% static 'css/list_items.css' %}">
 </head>
 {% include 'navbar.html' %}
-<body style="margin-top: 6rem;">
-    
-    {% for item in queryset %}
-    {{item.item_name}}         {{item.quantity}} <br>
-    {% endfor %}
+<body>
+
+    <div class="list_container">
+        <form method='POST' action=''>{% csrf_token %}
+            {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                <span class="field">{{ field }}</span>
+            </div>
+        {% endfor %}
+                <input type="submit" value='Search'/>
+        </form>
+        <br>
+        <table>
+            <tr class="table_head">
+                <td> No</td>
+                <td> Catagory</td>
+                <td> Item Name </td>
+                <td> Quantity </td>
+                <td></td>
+                <td></td>
+            </tr>
+            {% for item in queryset %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{item.catagory}}</td>
+                <td>{{item.item_name}}</td>
+                <td>{{item.quantity}}</td>
+                <td></td>
+                <td></td>
+            </tr>
+            {% endfor %}
+           
+        </table>
+
+    </div>
 </body>
 </html>

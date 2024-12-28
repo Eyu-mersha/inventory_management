@@ -1,0 +1,31 @@
+body{
+    margin-top: 6rem;
+}
+.form{
+    padding:30px 0px 0px 400px;
+    color: black;
+}
+.form .form-group{
+    margin:30px 20px;
+    width: 45%;
+}
+.form .form-group label{
+    margin: 15px 20px;
+    font-size: larger;
+}
+.form .form-group span input{
+    float: right;
+    padding:0px 20px;
+    position: relative;
+    left:20px;
+    border: none;
+    border-bottom: 1px solid black;
+    font-size: large;
+    outline: none;
+}
+input.submit{
+    width: 30%;
+    padding: 15px;
+    margin: 25px 120px;
+  
+}
