@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from inventorymgmt import models,forms
 
@@ -22,6 +22,7 @@ def add_items(request):
     form = forms.StockCreationForm(request.POST or None)
     if form.is_valid():
         form.save()
+        return redirect('list_items')
     queryset= models.Stock.objects.all()
     context = {
         "form": form,
