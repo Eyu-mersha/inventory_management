@@ -12,13 +12,14 @@
 
     <div class="list_container">
         <form method='POST' action=''>{% csrf_token %}
+            <h2> Search Items</h2>
             {% for field in form %}
             <div class="form-group">
-                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label><br>
                 <span class="field">{{ field }}</span>
             </div>
         {% endfor %}
-                <input type="submit" value='Search'/>
+                <input class="search" type="submit" value='Search'/>
         </form>
         <br>
         <table>
@@ -36,7 +37,7 @@
                 <td>{{item.catagory}}</td>
                 <td>{{item.item_name}}</td>
                 <td>{{item.quantity}}</td>
-                <td></td>
+                <td><a href="{% url 'update_items' item.id %}">Edit</a></td>
                 <td></td>
             </tr>
             {% endfor %}

@@ -2,8 +2,39 @@ body{
     color:black;
 }
 .list_container{
-    margin-top: 6rem;
-    margin-left: 20rem;
+    margin: 6rem 0rem 0rem 5rem;
+    display: flex;
+}
+.list_container h2{
+    color: chocolate;
+    padding-bottom: 10px;
+}
+.list_container form{
+    width: 20%;
+    height: 45vh;
+    text-align: left;
+    font-size: large;
+    background-color: #f1eded;
+    color: black;
+    padding: 50px;
+    margin-right: 40px;
+}
+label{
+    padding: 50px 0px ;
+    font-size: large;   
+}
+.list_container input{
+    margin: 10px;
+    padding: 10px 70px 10px 10px;
+    border:1px solid #d3cfcf;
+}
+input.search{
+    padding: 10px 40px 40px 40px;
+    margin:20px 10px 80px 10px;
+    background-color: chocolate;
+    color:black;
+    width: 100%;
+    border: none;
 }
 
 .list_container .table_head{

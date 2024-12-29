@@ -22,5 +22,6 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('add_items/',views.add_items,name='add_items'),
     path('list_items/',views.list_items,name='list_items'),
-    path('admin/', admin.site.urls)
+    path('admin/', admin.site.urls),
+    path('update_items/<str:pk>/', views.update_items, name='update_items'),
 ]

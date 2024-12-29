@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-
+from django.urls import reverse
 from inventorymgmt import models,forms
 
 # Create your views here.
@@ -41,3 +41,16 @@ def add_items(request):
         "title":"Add Item",
     }
     return render(request, "add_items.html", context)
+def update_items(request, pk):
+	queryset = models.Stock.objects.get(id=pk)
+	form = forms.StockUpdateForm(instance=queryset)
+	if request.method == 'POST':
+		form = forms.StockUpdateForm(request.POST, instance=queryset)
+		if form.is_valid():
+			form.save()
+			return redirect('/list_items')
+
+	context = {
+		'form':form
+	}
+	return render(request, 'add_items.html', context)
