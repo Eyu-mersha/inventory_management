@@ -22,14 +22,15 @@
                 <input class="search" type="submit" value='Search'/>
         </form>
         <br>
+        
         <table>
             <tr class="table_head">
                 <td> No</td>
                 <td> Catagory</td>
                 <td> Item Name </td>
                 <td> Quantity </td>
-                <td></td>
-                <td></td>
+                <td> Modify</td>
+                <td> Delete</td>
             </tr>
             {% for item in queryset %}
             <tr>
@@ -37,8 +38,8 @@
                 <td>{{item.catagory}}</td>
                 <td>{{item.item_name}}</td>
                 <td>{{item.quantity}}</td>
-                <td><a href="{% url 'update_items' item.id %}">Edit</a></td>
-                <td></td>
+                <td><a href="{% url 'update_items' item.id %}">Edit 🛠</a></td>
+                <td>Del 🧺</td>
             </tr>
             {% endfor %}
            
