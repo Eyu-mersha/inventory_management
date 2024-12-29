@@ -1,7 +1,7 @@
 body{
     margin-top: 6rem;
 }
-.form{
+form.form{
     padding: 30px 0px 0px 400px;
     color: black;
     background-color: aqua;
@@ -30,5 +30,6 @@ input.submit{
     width: 30%;
     padding: 15px;
     margin: 25px 120px;
-  
+    background-color: chocolate;
+    color: white;
 }
