@@ -39,7 +39,7 @@
                 <td>{{item.item_name}}</td>
                 <td>{{item.quantity}}</td>
                 <td><a href="{% url 'update_items' item.id %}">Edit 🛠</a></td>
-                <td><a href="{% url 'delete_items' instance.id %}">Del 🧺</a></td>
+                <td><a href="{% url 'delete_items' item.id %}">Del 🧺</a></td>
             </tr>
             {% endfor %}
            
