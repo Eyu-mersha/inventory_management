@@ -1,35 +1,43 @@
 body{
     margin-top: 6rem;
 }
-form.form{
-    padding: 30px 0px 0px 400px;
+.form{
+    padding: 30px;
     color: black;
-    background-color: aqua;
-    width: 10%;
+    width: 25%;
     margin: auto;
+    background-color:#f1eded;
 }
-.form .form-group{
-    margin:30px 20px;
-    width: 45%;
+.form-group{
+    display: flex;
+    flex-direction: column;
 }
-.form .form-group label{
-    margin: 15px 20px;
+h2{
+    text-align: center;
+    color: chocolate;
+}
+label{
+    color: black;
     font-size: larger;
+    margin: 20px 0px ;
+    
 }
 .form .form-group span input{
-    float: right;
+    display: block;
     padding:0px 20px;
     position: relative;
-    left:20px;
+    left:40px;
     border: none;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #33333373;
     font-size: large;
     outline: none;
+    background-color: transparent;
 }
 input.submit{
-    width: 30%;
-    padding: 15px;
-    margin: 25px 120px;
+    width: 90%;
+    margin:30px 0px 0px 5px;
+    padding: 10px 0px ;
     background-color: chocolate;
-    color: white;
+    color: #f1eded;
+    border: none;
 }

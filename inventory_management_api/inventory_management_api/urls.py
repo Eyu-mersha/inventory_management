@@ -24,4 +24,5 @@ urlpatterns = [
     path('list_items/',views.list_items,name='list_items'),
     path('admin/', admin.site.urls),
     path('update_items/<str:pk>/', views.update_items, name='update_items'),
+    path('delete_items/<str:pk>/', views.delete_items, name="delete_items"),
 ]

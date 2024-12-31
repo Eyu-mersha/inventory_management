@@ -9,8 +9,8 @@
 </head>
 {% include 'navbar.html' %}    
 <body style="margin-top: 6rem;">
-
     <form class="form" method="POST" action="">{% csrf_token %}
+        <h2>Add Item</h2>
         {% for field in form %}
             <div class="form-group">
                 <label for="{{ field.id_for_label }}">{{ field.label }}</label>
