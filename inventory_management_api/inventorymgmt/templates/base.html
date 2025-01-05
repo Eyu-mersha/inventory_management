@@ -6,13 +6,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
 
-    <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
 </head>
 <body>
-    {% block title %}
-    {% endblock %}
+    <div class="body">
+        <div class="left">
+            Ls
+        </div>
+        <div class="login_form">
+            <div class="header">
+                <h2>Login</h2>
+                <p>Welcome back! Please Login to your account.</p>
+            </div>
+          
+        
+            
+    <form method="post" action="">
+        {% csrf_token %}
+          <p>
+        <label for="id_username">Username:</label><br>
+        <input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username">
+      </p>
+      <p>
+        <label for="id_password">Password:</label><br>
+        <input type="password" name="password" autocomplete="current-password" required id="id_password">    
+      </p>
+      <p style="float:right; color:darkgray;padding-right: 60px;"> <a href="/accounts/password/reset/">Forgot your password?</a>.</p>
+      <p class="forgot">
+        <input class="login" type="submit" value="Log in" />
+        <input type="hidden" name="next" value="" />
+      </p>
+        
+    </form>
+    
+    
+    <p style="float: left;padding:15px 30px;color:darkgray;">Not a member? <a href="/accounts/register/">Register</a>.</p>
+    
+        </div>
+    </div>
 
-    {% block content %} 
-    {% endblock %}
 </body>
 </html>

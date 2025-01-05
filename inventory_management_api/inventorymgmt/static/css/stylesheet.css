@@ -2,7 +2,11 @@ body {
     margin-top: 500px;
     font-family: verdana;
   }
-.list_container {
-    padding: 30px;
-    color:red;
+.container {
+  display: flex;
+}
+.left{
+  width: 25%;
+  height: 100vh;
+  background-color: azure;
 }
