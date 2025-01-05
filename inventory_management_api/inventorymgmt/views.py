@@ -26,12 +26,7 @@ def list_items(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
-    context = {
-        "title": title,
-        "page_obj": page_obj,
-        "form": form,
-    }
-    
+    # Check if the form is posted and valid
     if request.method == 'POST' and form.is_valid():
         catagory_id = form.cleaned_data['catagory']  # Access the selected catagory from the form
         item_name = form.cleaned_data['item_name']
@@ -56,7 +51,12 @@ def list_items(request):
 
             return response
     
-    # Context for rendering
+    # Pagination for search results
+    paginator = Paginator(queryset, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    # Context for rendering the page
     context = {
         "form": form,
         "title": title,
@@ -64,6 +64,7 @@ def list_items(request):
     }
 
     return render(request, "list_items.html", context)
+
 @login_required
 def add_items(request):
     form = forms.StockCreationForm(request.POST or None)
@@ -231,5 +232,23 @@ def list_history(request):
             "header": header,
             "queryset": queryset,
         }
-
+    
     return render(request, "list_history.html", context)
+
+@login_required
+def recent_items(request):
+    title = "Recent of items in stock"
+    form = forms.StockSearchForm(request.POST or None)
+    queryset = models.Stock.objects.all()
+    paginator = Paginator(queryset, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    # Context for rendering the page
+    context = {
+        "form": form,
+        "title": title,
+        "page_obj": page_obj,
+    }
+
+    return render(request, "home.html", context)
