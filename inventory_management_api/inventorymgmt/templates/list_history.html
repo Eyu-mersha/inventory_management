@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="{% static 'css/list_items.css' %}">
+</head>
+
+<body>
+    <form method='POST' action=''>{% csrf_token %}
+        {{form}}
+        <input type="submit" value='Search'/>
+    </form>
+    </form>
+    <div class="list_container">
+            <table class='table'>
+              <thead>
+                <tr>
+                  <th>COUNT</th>
+                  <th>ID</th>
+                  <th>CATAGORY</th>
+                  <th>ITEM NAME</th>
+                  <th>QUANTITY IN STORE</th>
+                  <th>ISSUE QUANTITY</th>
+                  <th>RECEIVE QUANTITY</th>
+                  <th>LAST UPDATED</th>
+                </tr>
+              </thead>
+            {% for instance in queryset %}
+                <tr>
+    
+                  <td>{{forloop.counter}}</td>
+                  <td>{{instance.id}}</td>
+                  <td>{{instance.catagory}}</td>
+                  <td>{{instance.item_name}}</td>
+                  <td>{{instance.quantity}}</td>
+                  <td>{{instance.issue_quantity}}</td>
+                  <td>{{instance.receive_quantity}}</td>
+                  <td>{{instance.last_updated}}</td>
+                </tr>
+            {% endfor %}
+          </table>
+        </div>
+    </div>
+</body>
+</html>

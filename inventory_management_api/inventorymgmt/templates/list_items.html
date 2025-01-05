@@ -35,6 +35,7 @@
                 <td> Catagory</td>
                 <td> Item Name </td>
                 <td> Quantity </td>
+                <td> Reorder_Level</td>
                 <td> Modify</td>
                 <td> Date Created </td>
                 <td> Last Modified</td>
@@ -45,7 +46,13 @@
                 <td>{{forloop.counter}}</td>
                 <td>{{item.catagory}}</td>
                 <td>{{item.item_name}}</td>
-                <td><a href="{% url 'stock_detail' item.id %}">{{item.quantity}}</a></td>
+                <td><a href="{% url 'stock_detail' item.id %}">
+                    {% if item.quantity <= item.reorder_level %}
+                    <div style="background-color: orange;">{{item.quantity}}</div>
+                    {% else %}{{item.quantity}}
+                    {% endif %}</a>
+                  </td>
+                <td><a href="{% url 'reorder_level' item.id %}">{{item.reorder_level}}</a></td>
                 <td><a href="{% url 'update_items' item.id %}">Edit 🛠</a></td>
                 <td>{{item.creation_date}}</td>
                 <td>{{item.last_updated}}</td>

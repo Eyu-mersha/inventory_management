@@ -1,6 +1,7 @@
 from django import forms
 from .models import Stock
-from .models import Catagory 
+from .models import Catagory ,StockHistory
+
 
 
 class StockCreationForm(forms.ModelForm):
@@ -28,6 +29,14 @@ class StockSearchForm(forms.Form):  # Use a regular form for search (not ModelFo
     item_name = forms.CharField(required=False)
     export_to_CSV = forms.BooleanField(required=False)
 
+class StockHistorySearchForm(forms.ModelForm):
+	export_to_CSV = forms.BooleanField(required=False)
+	start_date = forms.DateTimeField(required=False)
+	end_date = forms.DateTimeField(required=False)
+	class Meta:
+		model = StockHistory
+		fields = ['catagory', 'item_name', 'start_date', 'end_date']
+
 class StockUpdateForm(forms.ModelForm):
 	class Meta:
 		model = Stock
@@ -43,3 +52,8 @@ class ReceiveForm(forms.ModelForm):
 	class Meta:
 		model = Stock
 		fields = ['receive_quantity']
+          
+class ReorderLevelForm(forms.ModelForm):
+	class Meta:
+		model = Stock
+		fields = ['reorder_level']
