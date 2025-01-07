@@ -9,14 +9,57 @@
 </head>
 {% include 'navbar.html' %}
 <body>
-    <div class="list_container">
-        {% if messages %}
-        <ul class="messages">
-               {% for message in messages %}
-                     <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-               {% endfor %}
-       </ul>
-    {% endif %}
+    <div class="list_container">    
+        <div class="lists">
+            <table>
+                <tr class="table_head">
+                    <td> No</td>
+                    <td> Catagory</td>
+                    <td> Item Name </td>
+                    <td> Quantity </td>
+                    <td> Reorder_Level</td>
+                    <td> Edit</td>
+                    <td> Date Created </td>
+                    <td> Last Modified</td>
+                    <td> Del</td>
+                </tr>
+                {% for item in page_obj.object_list %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{item.catagory}}</td>
+                    <td>{{item.item_name}}</td>
+                    <td><a href="{% url 'stock_detail' item.id %}">
+                        {% if item.quantity <= item.reorder_level %}
+                        <span style="background-color: orange;">{{item.quantity}}</span>
+                        {% else %}{{item.quantity}}
+                        {% endif %}</a>
+                      </td>
+                    <td>{{item.reorder_level}} <a href="{% url 'reorder_level' item.id %}"><img style="width: 17px; padding-left: 3px;" src="../static/img/adjust.png" alt="" srcset=""></a></td>
+                    <td><a href="{% url 'update_items' item.id %}"><img style="width:10px" src="../static/img/edit.png" alt=""></a></td>
+                    <td>{{item.creation_date|date:"d-m-Y"}}</td>
+                    <td>{{item.last_updated|date:"d-m-Y"}}</td>
+                    <td><a href="{% url 'delete_items' item.id %}"><img style="width:15px" src="../static/img/delete.png" alt=""></a></td>
+                </tr>
+                {% endfor %}
+            </table>
+            <div class="pagination_styles">
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1">&laquo; first</a>
+                        <a href="?page={{ page_obj.previous_page_number }}"><img style="width: 30px;margin-top: 10px;" src="../static/img/previous.png" alt=""></a>
+                    {% endif %}
+        
+                    <span class="current">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    </span>
+        
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}"><img style="width: 30px;margin-top: 10px;" src="../static/img/next-button.png" alt=""></a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}">last </a>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
         <form method='POST' action=''>{% csrf_token %}
             <h2> Search Items</h2>
             {% for field in form %}
@@ -27,59 +70,16 @@
         {% endfor %}
                 <input class="search" type="submit" value='Search'/>
         </form>
-        <br>
-        
-        <table>
-            <tr class="table_head">
-                <td> No</td>
-                <td> Catagory</td>
-                <td> Item Name </td>
-                <td> Quantity </td>
-                <td> Reorder_Level</td>
-                <td> Modify</td>
-                <td> Date Created </td>
-                <td> Last Modified</td>
-                <td> Delete</td>
-            </tr>
-            {% for item in page_obj.object_list %}
-            <tr>
-                <td>{{forloop.counter}}</td>
-                <td>{{item.catagory}}</td>
-                <td>{{item.item_name}}</td>
-                <td><a href="{% url 'stock_detail' item.id %}">
-                    {% if item.quantity <= item.reorder_level %}
-                    <div style="background-color: orange;">{{item.quantity}}</div>
-                    {% else %}{{item.quantity}}
-                    {% endif %}</a>
-                  </td>
-                <td><a href="{% url 'reorder_level' item.id %}">{{item.reorder_level}}</a></td>
-                <td><a href="{% url 'update_items' item.id %}">Edit 🛠</a></td>
-                <td>{{item.creation_date}}</td>
-                <td>{{item.last_updated}}</td>
-                <td><a href="{% url 'delete_items' item.id %}">Del 🧺</a></td>
-            </tr>
-            {% endfor %}
-            <div>
-                <span class="step-links">
-                    {% if page_obj.has_previous %}
-                        <a href="?page=1">&laquo; first</a>
-                        <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-                    {% endif %}
-        
-                    <span class="current">
-                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-                    </span>
-        
-                    {% if page_obj.has_next %}
-                        <a href="?page={{ page_obj.next_page_number }}">next</a>
-                        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-                    {% endif %}
-                </span>
-            </div>
-        
-        </table>
-            <!-- Pagination Controls -->
-
+        </div>
     </div>
+
+    {% if messages %}
+    <ul class="messages">
+           {% for message in messages %}
+                 <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+           {% endfor %}
+   </ul>
+{% endif %}
+
 </body>
 </html>

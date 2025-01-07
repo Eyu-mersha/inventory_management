@@ -20,10 +20,12 @@ from inventorymgmt import views
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
+    path('register/', views.register, name='registration'),
     path('',views.recent_items,name='home'),
     path('add_items/',views.add_items,name='add_items'),
+    path('add_catagory/', views.add_catagory, name='add_catagory'),
     path('list_items/',views.list_items,name='list_items'),
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),   
     path('accounts/', include('registration.backends.default.urls')),
     path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
     path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),

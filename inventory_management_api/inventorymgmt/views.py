@@ -6,8 +6,22 @@ from django.urls import reverse
 from inventorymgmt import models,forms
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-
+from .forms import UserRegistrationForm
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
 # Create your views here.
+def register(request):
+    if request.method == 'POST':
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)  # Log the user in immediately after registration
+            messages.success(request, f'Account created for {user.username}!')
+            return redirect('home')  # Redirect to a homepage or dashboard
+    else:
+        form = UserRegistrationForm()
+
+    return render(request, 'registration.html', {'form': form})
 @login_required
 def home(request):
     title = "Welcome to the homepage"
@@ -22,7 +36,7 @@ def list_items(request):
     queryset = models.Stock.objects.all()
     
     # Pagination
-    paginator = Paginator(queryset, 3)
+    paginator = Paginator(queryset, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
@@ -52,7 +66,7 @@ def list_items(request):
             return response
     
     # Pagination for search results
-    paginator = Paginator(queryset, 3)
+    paginator = Paginator(queryset, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
@@ -78,6 +92,17 @@ def add_items(request):
         "title":"Add Item",
     }
     return render(request, "add_items.html", context)
+def add_catagory(request):
+    if request.method == 'POST':
+        form = forms.CatagoryCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Category added successfully!")
+            return redirect('add_catagory')  # Redirect to the same page or another page
+    else:
+        form = forms.CatagoryCreationForm
+
+    return render(request, 'add_catagory.html', {'form': form})
 def update_items(request, pk):
 	queryset = models.Stock.objects.get(id=pk)
 	form = forms.StockUpdateForm(instance=queryset)
@@ -88,7 +113,9 @@ def update_items(request, pk):
 			return redirect('/list_items')
 
 	context = {
-		'form':form
+          
+		'form':form,
+        "title":"Item",
 	}
 	return render(request, 'add_items.html', context)
 def delete_items(request, pk):
@@ -157,6 +184,7 @@ def reorder_level(request, pk):
 	context = {
 			"instance": queryset,
 			"form": form,
+            "title":"Update Reorder Level",
 		}
 	return render(request, "add_items.html", context)
 @login_required

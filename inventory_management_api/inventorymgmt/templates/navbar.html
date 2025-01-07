@@ -11,7 +11,7 @@
             {% csrf_token %}
             <span style="float: right;padding-right:50px ;">
                 Hello, {{ user.username }}!
-            <button type="submit" style="padding: 10px 20px;margin-top: -10px;margin-left:20px white;color: black;border: none;">Logout</button>
+            <button type="submit" style="padding: 10px 20px;margin-top: -10px;margin-left:20px; background-color:#a687ff;color: black;border: none;">Logout</button>
             </span>
         </form>
     </nav>
@@ -24,13 +24,15 @@
             font-weight: bold;
             padding: 0rem 8rem 2rem 4rem;
             padding-right: 8rem;
-            color: black;
+            color:#a687ff;
         }
         a{
             padding-top: 10px;
         }
-        nav {background-image: url("../static/img/navbg.jpg"); height: 55px ;position: fixed;width:100%;top: 0;}
+        nav {background-color:#fcfaff; height: 55px ;position: fixed;width:100%;top: 0;box-shadow: 0px 1px 5px 0px rgba(166,135,254,0.55);
+-webkit-box-shadow: 0px 1px 5px 0px rgba(166,135,254,0.55);
+-moz-box-shadow: 0px 1px 5px 0px rgba(166,135,254,0.55);}
         body {margin:0 ; padding:0; box-sizing: border-box;}
         ul {color: white; list-style: none; display: inline; margin: auto; padding-top: 5px;}
-        ul li a{color:#333;float: left;display: block;text-align: center;padding: 0px 40px 0px 40px;text-decoration: none; font-size: medium;}
+        ul li a{color:#4C1F7A;float: left;display: block;text-align: center;padding: 0px 40px 0px 40px;text-decoration: none; font-size: 12px;}
     </style>

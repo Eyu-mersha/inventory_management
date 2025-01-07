@@ -1,23 +1,25 @@
 body{
     color:black;
+    background-color:white;
 }
 .list_container{
-    margin: 6rem 0rem 0rem 5rem;
+    width:100%;
+    padding: 6rem 2rem 0rem 2rem;
     display: flex;
 }
 .list_container h2{
-    color: chocolate;
+    color: #4C1F7A;
     padding-bottom: 10px;
 }
 .list_container form{
-    width: 20%;
-    height: 45vh;
+    width: 17%;
+    height: 55vh;
+    background-color: #E5D9F2;
     text-align: left;
     font-size: large;
-    background-color: #f1eded;
     color: black;
-    padding: 50px;
-    margin-right: 40px;
+    padding: 20px 50px;
+    margin:0px 20px;
 }
 ul.messages{
     padding-top: 200px;
@@ -28,8 +30,13 @@ ul.messages{
     text-align: center;
 }
 label{
-    padding: 50px 0px ;
+    padding: 10px 0px ;
     font-size: large;   
+}
+#id_catagory{
+    margin: 10px;
+    padding: 10px 70px 10px 10px;
+    border:1px solid #d3cfcf;
 }
 .list_container input{
     margin: 10px;
@@ -39,17 +46,34 @@ label{
 input.search{
     padding: 10px 40px 10px 40px;
     margin:20px 10px 80px 10px;
-    background-color: chocolate;
+    background-color: #4C1F7A;
     color:white;
     width: 100%;
     border: none;
 }
-
+table{
+    background-color:aliceblue;
+    border-spacing: 0;
+    border-collapse: collapse;
+  }
 .list_container .table_head td{
-    background-color:rgb(182, 102, 45) !important;
-    color:white;
+    background-color: #E5D9F2;
+    font-size: medium;
+    font-weight: 400;
+    border: 1px solid #d3cfcf;
 }
 .list_container table td{
-    background-color: #f1eded;
-    padding: 10px 30px;
+  background-color: #fcfaff;
+  color:#4C1F7A;
+  padding: 10px 20px;
+  font-size: 14px;
+  text-align: center;
+  border: 1px solid #E5D9F2;
+}
+.lists{
+    display: flex;
+    flex-direction: column;
+}
+.pagination_styles{
+    padding-top: 15px;
 }
