@@ -1,0 +1,58 @@
+table{
+    background-color:aliceblue;
+    border-spacing: 0;
+    border-collapse: collapse;
+    width: 93%;
+    margin-top: 40px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+.list_container  th{
+    background-color: #E5D9F2;
+    font-size: medium;
+    font-weight: 400;
+    border: 1px solid #d3cfcf;
+    padding: 5px 20px;
+}
+.list_container table td{
+  background-color: #fcfaff;
+  color:#4C1F7A;
+  padding: 10px 20px;
+  font-size: 14px;
+  text-align: center;
+  border: 1px solid #E5D9F2;
+}
+form{
+    background-color: #E5D9F2;
+    width: 93%;
+    margin: auto;
+    margin-left: 20px;
+}
+form .catagory{
+    margin-top: 6rem;
+    padding: 30px;
+    display: flex;
+}
+form .catagory .field{
+    padding: 7px 15px;
+}
+form .lower_search{
+    display: flex;
+}
+form .lower_search div{
+    padding-left: 30px;
+}
+form label{
+    font-size: larger;
+}
+form input{
+    padding: 7px 15px;
+}
+form .search{
+    margin:30px;
+    padding: 10px 30px 10px 30px;
+    background-color: #4C1F7A;
+    color:white;
+    width: 10%;
+    border: none;
+}

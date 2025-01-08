@@ -4,22 +4,42 @@ body{
 }
 .list_container{
     width:100%;
-    padding: 6rem 2rem 0rem 2rem;
+    padding: 4rem 1rem 0rem 2em;
     display: flex;
+    flex-direction: column;
 }
 .list_container h2{
     color: #4C1F7A;
-    padding-bottom: 10px;
 }
 .list_container form{
-    width: 17%;
-    height: 55vh;
+    width: 90%;
+    height: 35vh;
     background-color: #E5D9F2;
     text-align: left;
     font-size: large;
     color: black;
-    padding: 20px 50px;
-    margin:0px 20px;
+    padding: 0px 20px;
+    margin:0px 20px 10px 20px;
+}
+.list_container .form-group{
+    display: flex;
+}
+.list_container .checkboxes{
+    padding-left: 40px;
+    display: flex;
+    
+}
+.list_container #export,#shortage{
+    display: flex;
+    padding-right: 30px;
+}
+.list_container form .lower-search{
+    display: flex;
+    flex-direction: column;
+}
+.list_container form .lower-search .lower_upper_search{
+    display: flex;
+    padding-left: 40px;
 }
 ul.messages{
     padding-top: 200px;
@@ -30,31 +50,33 @@ ul.messages{
     text-align: center;
 }
 label{
-    padding: 10px 0px ;
+    padding: 5px 0px ;
     font-size: large;   
 }
 #id_catagory{
-    margin: 10px;
+    margin: 5px 10px;
     padding: 10px 70px 10px 10px;
     border:1px solid #d3cfcf;
 }
 .list_container input{
-    margin: 10px;
-    padding: 10px 70px 10px 10px;
+    margin: 5px 10px;
+    padding: 10px 10px 10px 10px;
     border:1px solid #d3cfcf;
 }
 input.search{
-    padding: 10px 40px 10px 40px;
-    margin:20px 10px 80px 10px;
+    padding: 10px 30px 10px 30px;
     background-color: #4C1F7A;
     color:white;
-    width: 100%;
+    width: 10%;
+    margin-left:40px ;
     border: none;
 }
 table{
     background-color:aliceblue;
     border-spacing: 0;
     border-collapse: collapse;
+    width: 93%;
+    margin-left: 20px;
   }
 .list_container .table_head td{
     background-color: #E5D9F2;

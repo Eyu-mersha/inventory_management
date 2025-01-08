@@ -5,14 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{title}}</title>
-    <link rel="stylesheet" href="{% static 'css/add_items.css' %}">
+    <link rel="stylesheet" href="{% static 'css/stock_detail.css' %}">
 </head>
 {% include 'navbar.html' %}    
-<body style="margin-top: 6rem;">
-    <a href="{% url 'issue_items' queryset.id %}"><div class='btn btn-danger'>ISSUE THIS ITEM</div></a>
-    <a href="{% url 'receive_items' queryset.id %}"><div class='btn btn-primary'>RECEIVE THIS ITEM</div></a>
-        <br><br>
+<body style="margin-top: 6rem;justify-content: space-around;">
         <div class="display_table">
+          <h2>Stock Detail</h2>
           <table class='table'>
                   <tr>
                     <th>ITEM NAME</th>
@@ -28,5 +26,11 @@
                   </tr>
           </table>
         </div>
+        <div class="btns">
+          <a href="{% url 'issue_items' queryset.id %}"><div class='btn btn-danger'>Issue Item</div></a>
+          <a href="{% url 'receive_items' queryset.id %}"><div class='btn btn-primary'>Receive Item</div></a>
+        </div>
+
+    
 </body>
 </html>

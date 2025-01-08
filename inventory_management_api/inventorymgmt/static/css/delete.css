@@ -1,0 +1,25 @@
+.del{
+    padding: 0px 30px 10px 30px;
+    color: black;
+    width: 30%;
+    margin: auto;
+    background-color: #E5D9F2;
+}
+h1{
+    text-align: center;
+    color: #4C1F7A;
+    padding-top: 10px;
+}
+.btns{
+    display: flex;
+    justify-content: space-around;
+}
+.btns input{
+    width: 80px;
+    background-color:#4C1F7A;
+    color: #E5D9F2;
+    border: none;
+}
+.btns a{
+    padding: 10px;
+}

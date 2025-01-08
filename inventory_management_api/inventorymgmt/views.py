@@ -9,6 +9,7 @@ from django.core.paginator import Paginator
 from .forms import UserRegistrationForm
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.db.models import F
 # Create your views here.
 def register(request):
     if request.method == 'POST':
@@ -36,7 +37,7 @@ def list_items(request):
     queryset = models.Stock.objects.all()
     
     # Pagination
-    paginator = Paginator(queryset, 10)
+    paginator = Paginator(queryset, 5)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
@@ -53,6 +54,16 @@ def list_items(request):
         if item_name:
             queryset = queryset.filter(item_name__icontains=item_name)
         
+
+        min_price = form.cleaned_data['min_price']
+        max_price = form.cleaned_data['max_price']
+        if min_price is not None and max_price is not None:
+            queryset = queryset.filter(price__gte=min_price, price__lte=max_price)
+        elif min_price is not None:
+            queryset = queryset.filter(price__gte=min_price)
+        elif max_price is not None:
+            queryset = queryset.filter(price__lte=max_price)
+            
         # CSV Export
         if form.cleaned_data.get('export_to_CSV', False):
             response = HttpResponse(content_type='text/csv')
@@ -64,9 +75,11 @@ def list_items(request):
                 writer.writerow([stock.catagory.name, stock.item_name, stock.quantity])
 
             return response
-    
+        if form.cleaned_data.get('Short_stocks', False):
+             queryset = queryset.filter(quantity__lte=F('reorder_level'))
+
     # Pagination for search results
-    paginator = Paginator(queryset, 10)
+    paginator = Paginator(queryset, 5)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
@@ -150,7 +163,7 @@ def issue_items(request, pk):
 		"queryset": queryset,
 		"form": form,
 	}
-	return render(request, "add_items.html", context)
+	return render(request, "issue.html", context)
 
 
 
@@ -171,7 +184,7 @@ def receive_items(request, pk):
 			"item": queryset,
 			"form": form,
 		}
-	return render(request, "add_items.html", context)
+	return render(request, "recieve.html", context)
 def reorder_level(request, pk):
 	queryset = models.Stock.objects.get(id=pk)
 	form = forms.ReorderLevelForm(request.POST or None, instance=queryset)
@@ -224,6 +237,7 @@ def list_history(request):
         # Filter by category if provided
         if catagory:
             queryset = queryset.filter(catagory_id=catagory)
+        # Filter by 
 
         # CSV Export functionality
         if form.cleaned_data.get('export_to_CSV', False):
@@ -254,7 +268,6 @@ def list_history(request):
                     stock.last_updated
                 ])
             return response
-
         context = {
             "form": form,
             "header": header,

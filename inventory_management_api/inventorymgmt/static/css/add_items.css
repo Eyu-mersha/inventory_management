@@ -1,26 +1,30 @@
 body{
-    margin-top: 6rem;
+    margin-top: 5rem;
 }
 .form{
-    padding: 30px;
+    padding: 0px 30px 10px 30px;
     color: black;
-    width: 25%;
+    width: 30%;
     margin: auto;
-    background-color: #E5D9F2;;
+    background-color: #E5D9F2;
 }
 .form-group{
     display: flex;
     flex-direction: column;
 }
-h2{
+h3{
     text-align: center;
     color: #4C1F7A;
+    padding-top: 10px;
 }
 label{
     color: black;
     font-size: larger;
-    margin: 20px 0px ;
+    margin: 10px 0px ;
     
+}
+#textarea{
+    left:40px;
 }
 #id_catagory{
     padding:10px 20px;
@@ -30,6 +34,7 @@ label{
 }
 .form .form-group span input{
     display: block;
+    width: 67%;
     padding:0px 20px;
     position: relative;
     left:40px;

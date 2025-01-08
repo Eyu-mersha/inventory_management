@@ -1,14 +1,15 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Catagory</title>
+    <link rel="stylesheet" href="{% static 'css/add_catagory.css' %}">
 </head>
+{% include 'navbar.html' %}
 <body>
-    <h1>Add Catagory</h1>
-
-    {% if messages %}
+        {% if messages %}
         <ul>
         {% for message in messages %}
             <li>{{ message }}</li>
@@ -17,10 +18,14 @@
     {% endif %}
 
     <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Add Catagory</button>
-    </form>
+        <div class="form_area">
+            <h2>Add Catagory</h2>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Add Catagory</button>
+   
+        </div>
+     </form>
 
     <a href="{% url 'home' %}">Back to Home</a>
 </body>

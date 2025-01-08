@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class StockCreationForm(forms.ModelForm):
     class Meta:
         model = Stock
-        fields = ['catagory','item_name','quantity']
+        fields = ['catagory','item_name','quantity','price','description']
     def clean_category(self):
       catagory = self.cleaned_data.get('catagory')
       if not catagory:
@@ -20,6 +20,16 @@ class StockCreationForm(forms.ModelForm):
       if not item_name:
         raise forms.ValidationError('This field is required')
       return item_name
+    def clean_quantity(self):
+      quantity = self.cleaned_data.get('quantity')
+      if quantity == 0:
+        raise forms.ValidationError('This field is required')
+      return quantity
+    def clean_price(self):
+      price = self.cleaned_data.get('price')
+      if price == 0.00:
+        raise forms.ValidationError('This field is required')
+      return price
 
 class CatagoryCreationForm(forms.ModelForm):
     class Meta:
@@ -58,8 +68,11 @@ class StockSearchForm(forms.Form):  # Use a regular form for search (not ModelFo
     
     catagory = forms.ModelChoiceField(queryset=Catagory.objects.all(), required=False, empty_label="All Categories")
     item_name = forms.CharField(required=False)
+    min_price = forms.DecimalField(required=False, max_digits=10, decimal_places=2, label='Min Price', widget=forms.NumberInput(attrs={'step': '0.01'}))
+    max_price = forms.DecimalField(required=False, max_digits=10, decimal_places=2, label='Max Price', widget=forms.NumberInput(attrs={'step': '0.01'}))
     export_to_CSV = forms.BooleanField(required=False)
-
+    Short_stocks = forms.BooleanField(required=False)
+    
 class StockHistorySearchForm(forms.ModelForm):
 	export_to_CSV = forms.BooleanField(required=False)
 	start_date = forms.DateTimeField(required=False)

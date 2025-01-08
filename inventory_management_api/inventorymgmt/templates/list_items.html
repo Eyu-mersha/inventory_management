@@ -9,14 +9,57 @@
 </head>
 {% include 'navbar.html' %}
 <body>
-    <div class="list_container">    
+    <div class="list_container"> 
+        <form method='POST' action=''><input type="hidden" name="csrfmiddlewaretoken" value="NqR5QQKFrqWzr2Zlk4ojzvM26OKiGRzYAtzFCEV1LASftKAjf3maJdh4qYBzpvPG">
+            <div class="search-title">
+                <h2 style="display: block;"> Filter Items</h2>
+            </div>
+            <div class="lower-search">
+                <div class="lower_upper_search">
+                    <label for="{{ form.catagory.id_for_label }}">Category</label><br>
+                    <span class="field">
+                        {{ form.catagory }}  <!-- This will render the dropdown -->
+                    </span>
+                      
+                    <div class="form-group">
+                        <label for="id_item_name">Item name</label><br>
+                        <span class="field"><input type="text" name="item_name" id="id_item_name"></span>
+                    </div>
+                      
+                    <div class="form-group">
+                        <label for="id_min_price">Min Price</label><br>
+                        <span class="field"><input type="number" name="min_price" step="0.01" id="id_min_price"></span>
+                    </div>
+                      
+                    <div class="form-group">
+                        <label for="id_max_price">Max Price</label><br>
+                        <span class="field"><input type="number" name="max_price" step="0.01" id="id_max_price"></span>
+                    </div>
+                </div>    
+                <div class="checkboxes">
+                    <div class="form-group" id="export">
+                        <label for="id_export_to_CSV">Export to csv</label><br>
+                        <span class="field"><input type="checkbox" name="export_to_CSV" id="id_export_to_CSV"></span>
+                    </div>
+                      
+                    <div class="form-group" id="shortage">
+                        <label for="id_Short_stocks">Short stocks</label><br>
+                        <span class="field"><input type="checkbox" name="Short_stocks" id="id_Short_stocks"></span>
+                    </div>    
+                </div>  
+                  
+            </div>
+            <input class="search" type="submit" value='Search'/>
+        </form>     
         <div class="lists">
             <table>
                 <tr class="table_head">
                     <td> No</td>
                     <td> Catagory</td>
+                    <td> Description </td>
                     <td> Item Name </td>
                     <td> Quantity </td>
+                    <td> Price </td>
                     <td> Reorder_Level</td>
                     <td> Edit</td>
                     <td> Date Created </td>
@@ -27,6 +70,7 @@
                 <tr>
                     <td>{{forloop.counter}}</td>
                     <td>{{item.catagory}}</td>
+                    <td>{{item.description}}</td>
                     <td>{{item.item_name}}</td>
                     <td><a href="{% url 'stock_detail' item.id %}">
                         {% if item.quantity <= item.reorder_level %}
@@ -34,6 +78,7 @@
                         {% else %}{{item.quantity}}
                         {% endif %}</a>
                       </td>
+                    <td>{{item.price}}</td>
                     <td>{{item.reorder_level}} <a href="{% url 'reorder_level' item.id %}"><img style="width: 17px; padding-left: 3px;" src="../static/img/adjust.png" alt="" srcset=""></a></td>
                     <td><a href="{% url 'update_items' item.id %}"><img style="width:10px" src="../static/img/edit.png" alt=""></a></td>
                     <td>{{item.creation_date|date:"d-m-Y"}}</td>
@@ -60,16 +105,6 @@
                 </span>
             </div>
         </div>
-        <form method='POST' action=''>{% csrf_token %}
-            <h2> Search Items</h2>
-            {% for field in form %}
-            <div class="form-group">
-                <label for="{{ field.id_for_label }}">{{ field.label }}</label><br>
-                <span class="field">{{ field }}</span>
-            </div>
-        {% endfor %}
-                <input class="search" type="submit" value='Search'/>
-        </form>
         </div>
     </div>
 

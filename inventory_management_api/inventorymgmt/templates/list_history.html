@@ -5,15 +5,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{title}}</title>
-    <link rel="stylesheet" href="{% static 'css/list_items.css' %}">
+    <link rel="stylesheet" href="{% static 'css/list_history.css' %}">
 </head>
-
+{% include 'navbar.html' %}
 <body>
-    <form method='POST' action=''>{% csrf_token %}
-        {{form}}
-        <input type="submit" value='Search'/>
-    </form>
-    </form>
+      <form method='POST' action=''><input type="hidden" name="csrfmiddlewaretoken" value="fraPrfqpIoWeyXvnN4gk3Do5u4boRhW02uSpd3BL2ySUAF6lI3ebdlT7Oe2FAVcI">
+          <div class="catagory">
+              <label for="{{ form.catagory.id_for_label }}">Category</label><br>
+              <span class="field">
+                {{ form.catagory }}  
+              </span>
+          </div>
+          <div class="lower_search">
+            <div>
+              <label for="id_item_name">Item name:</label>
+              <input type="text" name="item_name" maxlength="50" id="id_item_name">
+              </div>
+              <div>
+              <label for="id_start_date">Start date:</label>
+              <input type="text" name="start_date" id="id_start_date">
+              </div>
+              <div>
+              <label for="id_end_date">End date:</label>
+              <input type="text" name="end_date" id="id_end_date">
+              </div>
+              <div>
+              <label for="id_export_to_CSV">Export to csv:</label>
+              <input type="checkbox" name="export_to_CSV" id="id_export_to_CSV">
+              </div>
+          </div>
+          
+              <input  class="search" type="submit" value='Search'/> 
+      </form>
     <div class="list_container">
             <table class='table'>
               <thead>
@@ -24,6 +47,7 @@
                   <th>ITEM NAME</th>
                   <th>QUANTITY IN STORE</th>
                   <th>ISSUE QUANTITY</th>
+                  <th>ISSUED TO</th>
                   <th>RECEIVE QUANTITY</th>
                   <th>LAST UPDATED</th>
                 </tr>
@@ -37,8 +61,9 @@
                   <td>{{instance.item_name}}</td>
                   <td>{{instance.quantity}}</td>
                   <td>{{instance.issue_quantity}}</td>
+                  <td>{{instance.issue_to}}</td>
                   <td>{{instance.receive_quantity}}</td>
-                  <td>{{instance.last_updated}}</td>
+                  <td>{{instance.last_updated|date:"d-m-Y"}}</td>
                 </tr>
             {% endfor %}
           </table>

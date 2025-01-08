@@ -5,14 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{title}}</title>
-    <link rel="stylesheet" href="{% static 'css/add_items.css' %}">
+    <link rel="stylesheet" href="{% static 'css/delete.css' %}">
 </head>
 {% include 'navbar.html' %}    
 <body style="margin-top: 6rem;">
-    <form method="post" action="">{% csrf_token %}
+    <form class="del" method="post" action="">{% csrf_token %}
           <h1>Are you sure you want to delete?</h1><br>
-          <input class="btn btn-danger" type="submit" value="Yes" />
-          <a href="/list_items"><div class="btn btn-primary">Cancel</div></a>
+          <div class="btns">
+            <input class="btn btn-danger" type="submit" value="Yes" />
+            <a href="/list_items"><input class="btn btn-primary" type="button" value="Cancel"></a>
+          </div>
      </form>
 </body>
 </html>
