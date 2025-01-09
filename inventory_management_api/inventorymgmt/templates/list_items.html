@@ -10,7 +10,8 @@
 {% include 'navbar.html' %}
 <body>
     <div class="list_container"> 
-        <form method='POST' action=''><input type="hidden" name="csrfmiddlewaretoken" value="NqR5QQKFrqWzr2Zlk4ojzvM26OKiGRzYAtzFCEV1LASftKAjf3maJdh4qYBzpvPG">
+        <form method='POST' action=''>
+            {% csrf_token %}
             <div class="search-title">
                 <h2 style="display: block;"> Filter Items</h2>
             </div>

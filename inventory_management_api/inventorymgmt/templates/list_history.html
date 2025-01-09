@@ -9,7 +9,8 @@
 </head>
 {% include 'navbar.html' %}
 <body>
-      <form method='POST' action=''><input type="hidden" name="csrfmiddlewaretoken" value="fraPrfqpIoWeyXvnN4gk3Do5u4boRhW02uSpd3BL2ySUAF6lI3ebdlT7Oe2FAVcI">
+      <form method='POST' action=''>
+        {% csrf_token %}
           <div class="catagory">
               <label for="{{ form.catagory.id_for_label }}">Category</label><br>
               <span class="field">
