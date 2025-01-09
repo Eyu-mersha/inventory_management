@@ -62,8 +62,6 @@ class UserRegistrationForm(forms.ModelForm):
             raise forms.ValidationError("Passwords do not match")
         return password_confirmation
 
-
-
 class StockSearchForm(forms.Form):  # Use a regular form for search (not ModelForm)
     
     catagory = forms.ModelChoiceField(queryset=Catagory.objects.all(), required=False, empty_label="All Categories")
@@ -90,7 +88,6 @@ class IssueForm(forms.ModelForm):
 	class Meta:
 		model = Stock
 		fields = ['issue_quantity', 'issue_to']
-
 
 class ReceiveForm(forms.ModelForm):
 	class Meta:

@@ -9,6 +9,7 @@ class Catagory(models.Model):
 
 # Create your models here.
 class Stock(models.Model):
+    
     catagory = models.ForeignKey(Catagory, on_delete=models.CASCADE)
     item_name = models.CharField(max_length=50, blank=False, null=True)
     description = models.TextField(blank=True, null=True)

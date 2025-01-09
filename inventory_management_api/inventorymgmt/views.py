@@ -97,7 +97,7 @@ def add_items(request):
     form = forms.StockCreationForm(request.POST or None)
     if form.is_valid():
         form.save()
-        messages.success(request, 'Successfully ')
+        messages.success(request, 'Successfully added')
         return redirect('list_items')
     queryset= models.Stock.objects.all()
     context = {
@@ -117,22 +117,36 @@ def add_catagory(request):
 
     return render(request, 'add_catagory.html', {'form': form})
 def update_items(request, pk):
-	queryset = models.Stock.objects.get(id=pk)
-	form = forms.StockUpdateForm(instance=queryset)
-	if request.method == 'POST':
-		form = forms.StockUpdateForm(request.POST, instance=queryset)
-		if form.is_valid():
-			form.save()
-			return redirect('/list_items')
+    # Fetch the Stock item by primary key (pk)
+    queryset = models.Stock.objects.get(id=pk)
+    
+    # Instantiate the form with the queryset data
+    form = forms.StockUpdateForm(instance=queryset)
+    
+    # Display success message when the item is successfully issued
+    if request.method == 'POST':
+        form = forms.StockUpdateForm(request.POST, instance=queryset)
+        
+        if form.is_valid():
+            # Get the updated item object after saving
+            item = form.save()
 
-	context = {
-          
-		'form':form,
-        "title":"Item",
-	}
-	return render(request, 'add_items.html', context)
+            # Display the success message
+            messages.success(request, "Updated Successfully. " + 
+                             str(item.quantity) + " " + str(item.item_name) + "s now in Store")
+            
+            # Redirect to another page after form submission
+            return redirect('/list_items')
+
+    context = {
+        'form': form,
+        "title": "Item",
+    }
+
+    return render(request, 'add_items.html', context)
 def delete_items(request, pk):
 	queryset = models.Stock.objects.get(id=pk)
+     
 	if request.method == 'POST':
 		queryset.delete()
 		return redirect('/list_items')
@@ -146,45 +160,56 @@ def stock_detail(request, pk):
 	return render(request, "stock_detail.html", context)
 
 def issue_items(request, pk):
-	queryset = models.Stock.objects.get(id=pk)
-	form = forms.IssueForm(request.POST or None, instance=queryset)
-	if form.is_valid():
-		item = form.save(commit=False)
-		item.receive_quantity = 0
-		item.quantity -= item.issue_quantity
-		messages.success(request, "Issued SUCCESSFULLY. " + str(item.quantity) + " " + str(item.item_name) + "s now left in Store")
-		item.save()
-
-		return redirect('/stock_detail/'+str(item.id))
-
-
-	context = {
-		"title": 'Issue ' + str(queryset.item_name),
-		"queryset": queryset,
-		"form": form,
-	}
-	return render(request, "issue.html", context)
+    queryset = models.Stock.objects.get(id=pk)
+    form = forms.IssueForm(request.POST or None, instance=queryset)
+    if form.is_valid():
+        item = form.save(commit=False)  
+        item.receive_quantity = 0 
+        item.quantity -= item.issue_quantity  
+        item.save()  
+        messages.success(
+            request,
+            "Issued Successfully. " + str(item.quantity) + " " + str(item.item_name) + "s now left in Store"
+        )
+        return redirect('/stock_detail/' + str(item.id))
+    context = {
+        "title": 'Issue ' + str(queryset.item_name), 
+        "queryset": queryset,
+        "form": form,  
+    }
+    return render(request, "issue.html", context)
 
 
 
 def receive_items(request, pk):
-	queryset = models.Stock.objects.get(id=pk)
-	form = forms.ReceiveForm(request.POST or None, instance=queryset)
-	if form.is_valid():
-		item = form.save(commit=False)
-		item.issue_quantity = 0
-		item.quantity += item.receive_quantity
-		item.save()
-		messages.success(request, "Received SUCCESSFULLY. " + str(item.quantity) + " " + str(item.item_name)+"s now in Store")
+    queryset = models.Stock.objects.get(id=pk)
+    form = forms.ReceiveForm(request.POST or None, instance=queryset)
 
-		return redirect('/stock_detail/'+str(item.id))
-		# return HttpResponseRedirect(instance.get_absolute_url())
-	context = {
-			"title": 'Receive ' + str(queryset.item_name),
-			"item": queryset,
-			"form": form,
-		}
-	return render(request, "recieve.html", context)
+    if form.is_valid():
+        item = form.save(commit=False)  # Don't commit yet, we'll modify the item
+        item.issue_quantity = 0  # Set the issued quantity to 0 (since it's being received)
+        item.quantity += item.receive_quantity  # Add the received quantity to the stock
+        item.save()  # Save the updated item
+
+        # Success message
+        messages.success(
+            request,
+            "Successfully Received. " + str(item.quantity) + " " + str(item.item_name) + "s now in Store"
+        )
+
+        # Redirect to the stock detail page
+        return redirect('/stock_detail/' + str(item.id))
+
+    # Debugging: Print the form errors to the console if it's not valid
+    else:
+        print(form.errors)  # You can log these errors or use them in the template for better debugging
+
+    context = {
+        "title": 'Receive ' + str(queryset.item_name),
+        "item": queryset,
+        "form": form,
+    }
+    return render(request, "recieve.html", context)  # Correct the typo here
 def reorder_level(request, pk):
 	queryset = models.Stock.objects.get(id=pk)
 	form = forms.ReorderLevelForm(request.POST or None, instance=queryset)
@@ -199,7 +224,7 @@ def reorder_level(request, pk):
 			"form": form,
             "title":"Update Reorder Level",
 		}
-	return render(request, "add_items.html", context)
+	return render(request, "reorder.html", context)
 @login_required
 def list_history(request):
     header = 'LIST OF ITEMS'
