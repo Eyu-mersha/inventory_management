@@ -1,0 +1,18 @@
+# Virtual environment
+venv/
+
+# Django migrations
+*/migrations/
+
+# Database
+db.sqlite3
+
+# Python bytecode
+*.pyc
+
+# IDE/editor files
+.vscode/
+.idea/
+
+# Other system files
+.DS_Store
