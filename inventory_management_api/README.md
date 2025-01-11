@@ -1,0 +1,2 @@
+
+   The application to be built is an inventory management api that helps company owners to efficiently manage and track their stock levels. It enables them to  manage the flow of resources, including both incoming and outgoing inventory,Keep real-time updates of stock quantities for each item in the inventory and track the addition of new stock and the removal of stock, store and retrieve detailed information about products such as descriptions, pricing, and categories,trigger notifications when stock levels are low and generate reports on stock history.
