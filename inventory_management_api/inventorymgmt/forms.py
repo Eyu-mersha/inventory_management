@@ -72,12 +72,18 @@ class StockSearchForm(forms.Form):  # Use a regular form for search (not ModelFo
     Short_stocks = forms.BooleanField(required=False)
     
 class StockHistorySearchForm(forms.ModelForm):
-	export_to_CSV = forms.BooleanField(required=False)
-	start_date = forms.DateTimeField(required=False)
-	end_date = forms.DateTimeField(required=False)
-	class Meta:
-		model = StockHistory
-		fields = ['catagory', 'item_name', 'start_date', 'end_date']
+    catagory = forms.ModelChoiceField(
+        queryset=Catagory.objects.all(), 
+        required=False, 
+        empty_label="All Categories"
+    )
+    export_to_CSV = forms.BooleanField(required=False)
+    start_date = forms.DateTimeField(required=False)
+    end_date = forms.DateTimeField(required=False)
+
+    class Meta:
+        model = StockHistory
+        fields = ['catagory', 'item_name', 'start_date', 'end_date']
 
 class StockUpdateForm(forms.ModelForm):
 	class Meta:
