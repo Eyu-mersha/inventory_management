@@ -227,44 +227,36 @@ def reorder_level(request, pk):
 	return render(request, "reorder.html", context)
 @login_required
 def list_history(request):
-    header = 'LIST OF ITEMS'
-    
-    # Initial queryset for all stock history
+    title = 'LIST OF ITEMS'
+    form = forms.StockHistorySearchForm(request.POST or None)
     queryset = models.StockHistory.objects.all()
-
-    # Pagination setup
-    paginator = Paginator(queryset, 3)  # 3 items per page
+    
+    # Pagination
+    paginator = Paginator(queryset, 5)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-
-    # Form for filtering
-    form = forms.StockHistorySearchForm(request.POST or None)
-
-    context = {
-        "header": header,
-        "page_obj": page_obj,
-        "form": form,
-    }
-
-    if request.method == 'POST':
-        # Accessing the form values safely with cleaned_data
-        catagory = form.cleaned_data['catagory']
+    
+    # Check if the form is posted and valid
+    if request.method == 'POST' and form.is_valid():
+        catagory_id = form.cleaned_data['catagory']  # Access the selected catagory from the form
         item_name = form.cleaned_data['item_name']
         start_date = form.cleaned_data['start_date']
         end_date = form.cleaned_data['end_date']
         
-        # Filter queryset based on form input
+        # Apply filters based on user input
+        if catagory_id:
+            queryset = queryset.filter(catagory_id=catagory_id)  # Use catagory_id to filter by catagory ID
+
+        # Apply item_name filter if it's provided
+        if item_name:
+            queryset = queryset.filter(item_name__icontains=item_name)
+       # Filter queryset based on form input
         queryset = models.StockHistory.objects.filter(
             item_name__icontains=item_name,
             last_updated__range=[start_date, end_date]
         )
-
-        # Filter by category if provided
-        if catagory:
-            queryset = queryset.filter(catagory_id=catagory)
-        # Filter by 
-
-        # CSV Export functionality
+    
+      # CSV Export functionality
         if form.cleaned_data.get('export_to_CSV', False):
             response = HttpResponse(content_type='text/csv')
             response['Content-Disposition'] = 'attachment; filename="Stock_History.csv"'
@@ -293,14 +285,21 @@ def list_history(request):
                     stock.last_updated
                 ])
             return response
-        context = {
-            "form": form,
-            "header": header,
-            "queryset": queryset,
-        }
-    
-    return render(request, "list_history.html", context)
 
+    # Pagination for search results
+    paginator = Paginator(queryset, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    # Context for rendering the page
+    context = {
+        "form": form,
+        "title": title,
+        "page_obj": page_obj,
+    }
+
+    return render(request, "list_history.html", context)
+   
 @login_required
 def recent_items(request):
     title = "Recent of items in stock"

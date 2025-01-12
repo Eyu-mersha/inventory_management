@@ -62,6 +62,17 @@ class UserRegistrationForm(forms.ModelForm):
             raise forms.ValidationError("Passwords do not match")
         return password_confirmation
 
+class StockHistorySearchForm(forms.Form):  # Use a regular form for search (not ModelForm)
+    
+    catagory = forms.ModelChoiceField(queryset=Catagory.objects.all(), required=False, empty_label="All Categories")
+    item_name = forms.CharField(required=False)
+    export_to_CSV = forms.BooleanField(required=False)
+    start_date = forms.DateTimeField(required=False)
+    end_date = forms.DateTimeField(required=False)
+    class Meta:
+        model = StockHistory
+        fields = ['catagory', 'item_name', 'start_date', 'end_date']
+    
 class StockSearchForm(forms.Form):  # Use a regular form for search (not ModelForm)
     
     catagory = forms.ModelChoiceField(queryset=Catagory.objects.all(), required=False, empty_label="All Categories")
@@ -70,20 +81,6 @@ class StockSearchForm(forms.Form):  # Use a regular form for search (not ModelFo
     max_price = forms.DecimalField(required=False, max_digits=10, decimal_places=2, label='Max Price', widget=forms.NumberInput(attrs={'step': '0.01'}))
     export_to_CSV = forms.BooleanField(required=False)
     Short_stocks = forms.BooleanField(required=False)
-    
-class StockHistorySearchForm(forms.ModelForm):
-    catagory = forms.ModelChoiceField(
-        queryset=Catagory.objects.all(), 
-        required=False, 
-        empty_label="All Categories"
-    )
-    export_to_CSV = forms.BooleanField(required=False)
-    start_date = forms.DateTimeField(required=False)
-    end_date = forms.DateTimeField(required=False)
-
-    class Meta:
-        model = StockHistory
-        fields = ['catagory', 'item_name', 'start_date', 'end_date']
 
 class StockUpdateForm(forms.ModelForm):
 	class Meta:
